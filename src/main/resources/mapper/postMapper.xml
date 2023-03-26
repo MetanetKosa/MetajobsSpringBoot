@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.metajobs.post.postMapper">
+    <resultMap type="org.recruit.post.domain.PostVO" id="postMap">
+        <result property="postNo" column="post_no" />
+        <result property="postTitle" column="post_title" />
+        <result property="postJob" column="post_job" />
+        <result property="postCareer" column="post_career" />
+        <result property="postEmptype" column="post_emptype" />
+        <result property="postAdd" column="post_add" />
+        <result property="postSdate" column="post_sdate" />
+        <result property="postFdate" column="post_fdate" />
+        <result property="postSal" column="post_sal" />
+        <result property="postEdu" column="post_edu" />
+        <result property="postAge" column="post_age" />
+        <result property="postHow" column="post_how" />
+        <result property="postUrl" column="post_url" />
+        <result property="comCno" column="com_cno" />
+        <result property="memNo" column="mem_no" />
+    </resultMap>
+
+    <select id="getPostList" resultMap="postMap">
+  		<![CDATA[
+        select * from post where post_no > 0
+        order by post_no desc
+        ]]>
+	</select>
+
+    <insert id="postInsert">
+        INSERT INTO POST(post_no, post_title, post_job,post_career, post_emptype,
+                         post_add, post_sdate, post_fdate,
+                         post_sal, post_edu, post_age, post_how, post_url, com_cno, mem_no)
+        VALUES(
+                  post_seq.nextval,#{postTitle},#{postJob},#{postCareer},#{postEmptype},#{postAdd},#{postSdate},#{postFdate},
+                  #{postSal},#{postEdu},#{postAge},#{postHow},#{postUrl},1236,#{mem_no})
+    </insert>
+
+    <update id="postUpdate">
+        update post
+        set post_title = #{postTitle},
+            post_job = #{postJob},
+            post_career = #{postCareer},
+            post_emptype = #{postEmptype},
+            post_add = #{postAdd},
+            post_sdate = #{postSdate},
+            post_fdate = #{postFdate},
+            post_sal = #{postSal},
+            post_edu = #{postEdu},
+            post_age = #{postAge},
+            post_how = #{postHow},
+            post_url = #{postUrl}
+        where post_no = #{postNo}
+    </update>
+
+    <delete id="postDelete" parameterType="Long">
+        delete from post where
+            post_no = #{post_no}
+    </delete>
+
+    <select id="getPost" parameterType="Long" resultMap="postMap">
+	<![CDATA[
+        select * from post where post_no = #{post_no}
+        ]]>
+	</select>
+
+    <select id = "getListWithPaging" parameterType="org.recruit.post.domain.Criteria" resultMap="postMap">
+        <![CDATA[
+				select post_no,post_title, post_job, post_career ,post_emptype, post_add, post_sdate ,post_fdate, post_sal, post_edu, post_how, post_url,com_cno,mem_no
+			from (
+			    select /*+INDEX_DESC(tbl_post pk_post) */
+			        rownum rn ,post_no,post_title, post_job, post_career ,post_emptype, post_add, post_sdate ,post_fdate, post_sal, post_edu, post_how, post_url,com_cno,mem_no
+			        from post
+			        where rownum <= #{pageNum} * #{amount}
+			        )
+			where  rn > (#{pageNum} - 1) * #{amount}
+		]]>
+        <if test = "keyword != null">
+            AND post_title like '%' || #{keyword} || '%'
+        </if>
+        <if test = "searchCareer != null">
+            AND post_career like '%' || #{searchCareer} || '%'
+        </if>
+        <if test = "searchEmptype != null">
+            AND post_emptype like '%' || #{searchEmptype} || '%'
+        </if>
+        <if test = "searchEdu != null">
+            AND post_edu like '%' || #{searchEdu} || '%'
+        </if>
+        order by post_sdate desc
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from post
+        where 1=1
+        <if test = "keyword != null">
+            AND post_title like '%' || #{keyword} || '%'
+            <if test = "searchCareer != null">
+                AND post_career like '%' || #{searchCareer} || '%'
+                <if test = "searchEmptype != null">
+                    AND post_emptype like '%' || #{searchEmptype} || '%'
+                    <if test = "searchEdu != null">
+                        AND post_edu like '%' || #{searchEdu} || '%'
+                    </if>
+                </if>
+            </if>
+        </if>
+    </select>
+</mapper>
+
+
+
