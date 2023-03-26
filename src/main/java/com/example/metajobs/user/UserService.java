@@ -2,8 +2,12 @@ package com.example.metajobs.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -15,6 +19,16 @@ public class UserService {
     }
 
     public UserVO findUser(String mem_id) { return userMapper.findUser(mem_id); }
+
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+
+        for (FieldError error: errors.getFieldErrors()) {
+            String validKeyName = String.format("valie_%s", error.getField());
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+        return validatorResult;
+    }
 
     //회원가입
     public void insertMember(UserVO user) { userMapper.insertMember(user);}
@@ -50,4 +64,5 @@ public class UserService {
             throw new IllegalStateException("회원정보가 존재하지 않습니다.");
         }
     }
+
 }

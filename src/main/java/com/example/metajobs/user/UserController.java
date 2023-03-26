@@ -1,12 +1,16 @@
 package com.example.metajobs.user;
 
+import org.springframework.ui.Model;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -42,10 +46,22 @@ public class UserController {
     }
 
     //회원가입
-    @PostMapping("/users")
-    public void createUser(@RequestBody UserVO user) {
+    @PostMapping("/users/signup")
+    public String createUser(@Valid @RequestBody UserVO user, Errors errors, Model model) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("user", user);
+
+            Map<String, String> validatorResult = userService.validateHandling(errors);
+            for(String key: validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+            }
+            return "/signup";
+        }
+
         //JSON 형태를 자바 객체 형태로 바꿔주기 위해 @RequestBody
         userService.insertMember(user);
+        return "redirect:/";
     }
 
     //회원탈퇴
