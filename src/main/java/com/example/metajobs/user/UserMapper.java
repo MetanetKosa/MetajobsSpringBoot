@@ -19,7 +19,7 @@ public interface UserMapper {
     public void updateMember(UserVO user);
 
     //회원 탈퇴
-    public int delete(String mem_id);
+    public void delete(String mem_id);
 
 
 }
