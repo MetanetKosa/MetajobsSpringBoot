@@ -7,14 +7,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReviewVO {
 
-public class Review {
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
 
     private long rno;
+
     private long cno;
     private String reJob;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
