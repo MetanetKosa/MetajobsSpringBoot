@@ -2,8 +2,13 @@ package com.example.metajobs.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
+
+    public List<UserVO> findAllUsers();
+
     public UserVO findUser(String mem_id);
 
     //회원가입
@@ -19,7 +24,7 @@ public interface UserMapper {
     public void updateMember(UserVO user);
 
     //회원 탈퇴
-    public void delete(String mem_id);
+    public void deleteMember(String mem_id);
 
 
 }
