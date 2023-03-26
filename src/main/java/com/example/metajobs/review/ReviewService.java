@@ -11,9 +11,13 @@ public class ReviewService {
     @Autowired
     private ReviewMapper reviewMapper;
 
-    public List<ReviewVO> getReviewList(Criteria cri){
+    public List<ReviewVO> getReviewList(){
         return reviewMapper.getList();
     };
+
+//    public List<ReviewVO> getReviewList(Criteria cri){
+//        return reviewMapper.getList();
+//    };
 
     public boolean insertReview(ReviewVO review){
         return reviewMapper.reviewInsert(review);
