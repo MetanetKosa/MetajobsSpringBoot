@@ -1,5 +1,4 @@
 package com.example.metajobs.review;
 
-public class ReviewController {
-    
+public interface ReviewMapper {
 }
