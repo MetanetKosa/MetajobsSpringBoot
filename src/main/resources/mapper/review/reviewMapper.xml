@@ -3,7 +3,96 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.metajobs.review.ReviewMapper">
+    <resultMap type="org.recruit.review.domain.ReviewVO" id="reviewResultMap">
+        <id property="rno" column="RE_NO"/>
+        <result property="cno" column="COM_CNO"/>
+        <result property="reJob" column="RE_JOB"/>
+        <result property="reDate" column="RE_DATE"/>
+        <result property="pnum" column="RE_PNUM"/>
+        <result property="reContent" column="RE_CONTENT"/>
+        <result property="reResult" column="RE_RESULT"/>
+        <result property="reWdate" column="RE_WDATE"/>
+        <result property="mno" column="MEM_NO"/>
+    </resultMap>
 
+
+    <select id="getList" resultMap="reviewResultMap">
+ 		<![CDATA[
+        select /*+ INDEX_DESC(review pk_review) */ * from review
+        where rownum <= 5
+        ]]>
+ 	</select>
+
+    <select id="get" resultMap="reviewResultMap">
+ 		<![CDATA[
+        select * from review
+        where re_no = #{rno}
+        ]]>
+ 	</select>
+
+    <insert id="reviewInsert">
+ 		<![CDATA[
+        insert into review(re_no, com_cno, re_job, re_date, re_pnum, re_Content, re_Result, re_wdate, mem_no)
+        values (RE_SEQ.NEXTVAL, #{cno}, #{reJob}, #{reDate}, #{pnum}, #{reContent}, #{reResult}, SYSDATE, #{mno})
+        ]]>
+ 	</insert>
+
+
+    <select id="getListWithPaging" resultMap="reviewResultMap" parameterType="map">
+        <![CDATA[
+ 		select
+ 		re_no, com_cno, re_job, re_date, re_pnum, re_content, re_result, re_wdate, mem_no
+ 		from(
+	 		select /*+ INDEX_DESC(review pk_review) */
+	 		rownum rn, re_no, com_cno, re_job, re_date, re_pnum, re_content, re_result, re_wdate, mem_no
+	 		from review
+	 		where rownum <= #{pageNum} * #{amount}
+	 		)
+	 	where rn > (#{pageNum} - 1) * #{amount}
+ 		]]>
+        <if test="keyword != null">
+            AND com_cno like '%'||#{keyword}||'%'
+        </if>
+        <if test="searchResult != null">
+            AND re_result like '%'||#{searchResult}||'%'
+        </if>
+        <if test="searchJob != null">
+            AND re_job like '%'||#{searchJob}||'%'
+        </if>
+
+    </select>
+
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from review
+        where 1=1
+        <if test="keyword != null">
+            AND com_cno like '%'||#{keyword}||'%'
+            <if test="searchResult != null">
+                AND re_result like '%'||#{searchResult}||'%'
+                <if test="searchJob != null">
+                    AND re_job like '%'||#{searchJob}||'%'
+                </if>
+            </if>
+        </if>
+
+    </select>
+
+    <delete id="reviewDelete">
+        delete from review where re_no = #{rno}
+    </delete>
+
+    <update id="reviewUpdate">
+        update review
+        set com_cno = #{cno},
+            re_job = #{reJob},
+            re_date = #{reDate},
+            re_pnum = #{pnum},
+            re_content = #{reContent},
+            re_result = #{reResult},
+            re_wdate = sysdate
+        where re_no = #{rno}
+    </update>
 </mapper>
 
 
