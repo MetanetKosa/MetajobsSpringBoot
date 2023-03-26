@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.metajobs.review.ReviewMapper">
-    <resultMap type="org.recruit.review.domain.ReviewVO" id="reviewResultMap">
+    <resultMap type="com.example.metajobs.review.ReviewVO" id="reviewResultMap">
         <id property="rno" column="RE_NO"/>
         <result property="cno" column="COM_CNO"/>
         <result property="reJob" column="RE_JOB"/>
@@ -18,10 +18,16 @@
 
     <select id="getList" resultMap="reviewResultMap">
  		<![CDATA[
-        select /*+ INDEX_DESC(review pk_review) */ * from review
-        where rownum <= 5
+        select * from review
         ]]>
  	</select>
+
+<!--    <select id="getList" resultMap="reviewResultMap">-->
+<!-- 		<![CDATA[-->
+<!--        select /*+ INDEX_DESC(review pk_review) */ * from review-->
+<!--        where rownum <= 5-->
+<!--        ]]>-->
+<!-- 	</select>-->
 
     <select id="get" resultMap="reviewResultMap">
  		<![CDATA[
