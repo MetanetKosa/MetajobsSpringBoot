@@ -1,7 +1,10 @@
 package com.example.metajobs.review;
 
+import org.mapstruct.Mapper;
+
 import java.util.List;
 
+@Mapper
 public interface ReviewMapper {
     public List<ReviewVO> getList();
 
