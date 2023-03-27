@@ -42,7 +42,7 @@
         </selectKey>
 
         insert into resume(resume_no,resume_image,resume_title,resume_gender,resume_technology,resume_career,mem_no,resume_cv)
-        values(#{resume_no},#{resume_image}, #{resume_title}, #{resume_gender}, #{resume_technology}, #{resume_career},#{mem_no}, #{resume_cv})
+        values(#{resume_no},'image1', #{resume_title}, #{resume_gender}, #{resume_technology}, #{resume_career},#{mem_no}, #{resume_cv})
     </insert>
 
 
@@ -57,11 +57,11 @@
         where resume_no = #{resume_no}
     </update>
 
-    <select id="get" resultType="org.recruit.resume.domain.ResumeVO">
+    <select id="get" resultType="Resume">
         select * from resume where resume_no = #{resume_no}
     </select>
 
-    <select id="getList" resultType="org.recruit.resume.domain.ResumeVO">
+    <select id="getList" resultType="Resume">
 	<![CDATA[
         select  * from resume where mem_no = #{mem_no} and resume_no > 0
         ]]>

@@ -9,7 +9,7 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: metajobs
     password: 1234
-#mybatis ??
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.example.restservice.user
+
+mybatis:
+  mapper-locations: classpath:mapper/resume/*.xml
+  type-aliases-package: com.example.metajobs.resume

@@ -1,6 +1,6 @@
 package com.example.metajobs.resume;
 
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
