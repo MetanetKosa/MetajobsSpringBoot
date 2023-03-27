@@ -35,4 +35,14 @@ public class ReviewController {
 
         return ResponseEntity.created(location).build();
     }
+
+    @DeleteMapping("/reviews/{rno}")
+    public void deleteUser(@PathVariable int rno){
+        ReviewVO review = reviewService.getReview(rno);
+
+//        if(review == null){
+//            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+//        }
+        reviewService.deleteReview(rno);
+    }
 }
