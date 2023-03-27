@@ -16,6 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     private UserService userService;
@@ -61,6 +62,7 @@ public class UserController {
 
         //JSON 형태를 자바 객체 형태로 바꿔주기 위해 @RequestBody
         userService.insertMember(user);
+        System.out.println(user.toString());
         return "redirect:/";
     }
 
@@ -75,28 +77,30 @@ public class UserController {
     }
 
     //회원수정
-    @PostMapping("/users/{mem_id}")
+    @PutMapping("/users/{mem_id}")
     public void updateUser(@PathVariable String mem_id, @RequestBody UserVO user) {
         userService.updateMember(mem_id, user);
     }
 
     //로그인
     @PostMapping("/users/login")
-    public String loginUser(HttpServletRequest request, UserVO user, RedirectAttributes rttr) {
+    public String loginUser(HttpServletRequest request, @RequestBody UserVO user, RedirectAttributes rttr) {
+        //System.out.println("ID: " +user.getMem_id() + "PW: "+ user.getMem_pw());
         HttpSession session = request.getSession();
         UserVO login = userService.loginMember(user);
 
         if (login == null) {
             int result = 0;
             rttr.addFlashAttribute("result", result);
-            session.setAttribute("member", null);
+            session.setAttribute("login", null);
+            System.out.println();
             String message = "";
             message="<script>alert('LogIn Failed :('); location.href='/'; </script>";
             return message;
         } else{
             int result = 1;
             rttr.addFlashAttribute("result", result);
-            session.setAttribute("member", login);
+            session.setAttribute("login", login);
             String message = "";
             message="<script>alert('LogIn Success :)'); location.href='/'; </script>";
             return message;
