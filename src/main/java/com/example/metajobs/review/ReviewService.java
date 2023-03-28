@@ -16,7 +16,7 @@ public class ReviewService {
     };
 
 //    public List<ReviewVO> getReviewList(Criteria cri){
-//        return reviewMapper.getList();
+//        return reviewMapper.getListWithPaging(cri);
 //    };
 
     public boolean insertReview(ReviewVO review){
