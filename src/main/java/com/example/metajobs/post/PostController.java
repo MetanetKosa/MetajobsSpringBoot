@@ -16,11 +16,10 @@ public class PostController {
         this.service = service;
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/post")
     public List<PostVO> getPostList(){
         return service.getPostList();
     }
-
 
 //    @GetMapping(value = "/postDetail")
 //    public String postDetail(Model model, @RequestParam Long post_no ) {
@@ -36,11 +35,27 @@ public class PostController {
         return post;
     }
 
-    @PostMapping("/postInsert")
+    @PostMapping("/post/postInsert")
     public void postDetail(@RequestBody PostVO postVO){
         System.out.println("postVO값 가져오기"+ postVO);
         int result = service.insertPost(postVO);
         System.out.println("결과 확인 : " + result);
     }
+
+    @DeleteMapping("/post/postDelete/{id}")
+    public void postDelete(@PathVariable Long id){
+        System.out.println("삭제할 id" +id);
+        int result = service.postDelete(id);
+        System.out.println("삭제 성공"+ result);
+    }
+
+    @PostMapping("/post/postUpdate")
+    public void postUpdate(@RequestBody PostVO postVO){
+        System.out.println("postVO값 가져오기"+ postVO);
+        int result = service.postUpdate(postVO);
+        System.out.println("수정 성공 : " + result);
+    }
+
+
 
 }

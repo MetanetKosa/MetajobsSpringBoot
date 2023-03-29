@@ -22,4 +22,12 @@ public class PostService {
     public int insertPost(PostVO postVO){
         return postMapper.postInsert(postVO);
     }
+
+    public int postDelete(Long postNo){
+        return postMapper.postDelete(postNo);
+    }
+
+    public int postUpdate(PostVO postNo){
+        return postMapper.postUpdate(postNo);
+    }
 }

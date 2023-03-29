@@ -42,6 +42,29 @@
                   #{postSal},#{postEdu},#{postAge},#{postHow},#{postUrl},1234,41)
     </insert>
 
+    <delete id="postDelete" parameterType="Long">
+        delete from post where
+            post_no = #{post_no}
+    </delete>
+
+    <update id="postUpdate">
+        update post
+        set post_title = #{postTitle},
+            post_job = #{postJob},
+            post_career = #{postCareer},
+            post_emptype = #{postEmptype},
+            post_add = #{postAdd},
+            post_sdate = #{postSdate},
+            post_fdate = #{postFdate},
+            post_sal = #{postSal},
+            post_edu = #{postEdu},
+            post_age = #{postAge},
+            post_how = #{postHow},
+            post_url = #{postUrl}
+        where post_no = #{postNo}
+    </update>
+
+
 
 </mapper>
 
