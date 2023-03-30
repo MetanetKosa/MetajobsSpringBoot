@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.metajobs.user.UserMapper">
+
+    <resultMap id="userMap" type="com.example.metajobs.user.UserVO">
+        <result property="mem_id" column="mem_id"/>
+        <result property="mem_pw" column="mem_pw"/>
+        <result property="mem_name" column="mem_name"/>
+        <result property="mem_birth" column="mem_birth"/>
+        <result property="mem_phone" column="mem_phone"/>
+        <result property="mem_email" column="mem_email"/>
+        <result property="mem_address" column="mem_address"/>
+        <result property="mem_joinDate" column="mem_joinDate"/>
+        <result property="mem_updateDate" column="mem_updateDate"/>
+    </resultMap>
+
+    <select id="findAllUsers" resultMap="userMap">
+        SELECT
+            mem_no, mem_id, mem_pw, mem_auth, mem_name, mem_birth, mem_phone, mem_address, mem_email, mem_joinDate, mem_updateDate
+        FROM
+            member
+    </select>
+
+    <!-- 회원정보 확인 -->
+    <select id="findUser" resultMap="userMap">
+        SELECT
+        mem_no, mem_id, mem_pw, mem_auth, mem_name, mem_birth, mem_phone, mem_address, mem_email, mem_joinDate, mem_updateDate
+        FROM
+        member
+        WHERE mem_id = #{mem_id}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="insertMember">
+
+<!--        <selectKey keyProperty="mem_no" order="BEFORE"-->
+<!--                   resultType="long">-->
+<!--            select mem_seq.nextVal from dual-->
+<!--        </selectKey>-->
+
+        insert into member (mem_no, mem_id, mem_pw, mem_name, mem_birth, mem_phone, mem_address, mem_email)
+        values (mem_seq.nextval, #{mem_id}, #{mem_pw}, #{mem_name}, #{mem_birth}, #{mem_phone}, #{mem_address}, #{mem_email})
+    </insert>
+
+    <!-- id로 비밀번호 찾기 -->
+    <select id="readPw" parameterType="String" resultType="String">
+        select mem_pw from member where mem_id = #{mem_id}
+    </select>
+
+    <!-- 회원정보 수정 -->
+    <update id="updateMember">
+        update member
+        set mem_birth = #{mem_birth},
+            mem_phone = #{mem_phone},
+            mem_address = #{mem_address},
+            mem_email = #{mem_email},
+            mem_updateDate = sysdate
+        where mem_id = #{mem_id}
+    </update>
+
+    <!-- 회원 탈퇴 -->
+    <delete id="deleteMember">
+        delete from member where mem_id = #{mem_id}
+    </delete>
+
+    <!-- 회원 리스트 -->
+    <select id="getList" resultMap="userMap">
+  		<![CDATA[
+        select * from member where mem_no > 0
+        ]]>
+  	</select>
+
+    <!-- 로그인 -->
+    <select id="loginMember" resultMap="userMap">
+        select mem_id, mem_pw, mem_name, mem_birth, mem_phone, mem_address, mem_email
+        from member
+        where
+            mem_id = #{mem_id} and mem_pw = #{mem_pw}
+    </select>
+</mapper>
+
+
