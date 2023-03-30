@@ -1,6 +1,7 @@
 package com.example.metajobs.post;
 
 
+import com.example.metajobs.vo.PostVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
@@ -17,40 +18,35 @@ public class PostController {
         this.service = service;
     }
 
-    @GetMapping("/post")
-    public List<PostVO> getPostList(){
+    @GetMapping("/posts")
+    public List<PostVO> postList(){
         return service.getPostList();
     }
 
-//    @GetMapping(value = "/postDetail")
-//    public String postDetail(Model model, @RequestParam Long post_no ) {
-//        model.addAttribute("post", service.getPost(post_no));
-//        log.info("postDetail 결과확인: "+ service.getPost(post_no));
-//        return "/post/postDetail";
-//    }
-
-    @GetMapping("/post/{id}")
-    public PostVO postDetail(@PathVariable Long id){
-        PostVO post = service.getPost(id);
-        System.out.println("결과 확인 : " + post);
-        return post;
-    }
-
-    @PostMapping("/post/postInsert")
+    @GetMapping("/posts/{post_no}")
     public void postDetail(@RequestBody PostVO postVO){
         System.out.println("postVO값 가져오기"+ postVO);
         int result = service.insertPost(postVO);
         System.out.println("결과 확인 : " + result);
     }
 
-    @DeleteMapping("/post/postDelete/{id}")
+    @PostMapping("/posts")
+    public PostVO postInsert(@PathVariable Long id){
+        PostVO post = service.getPost(id);
+        System.out.println("결과 확인 : " + post);
+        return post;
+    }
+
+
+
+    @DeleteMapping("/posts/{post_no}")
     public void postDelete(@PathVariable Long id){
         System.out.println("삭제할 id" +id);
         int result = service.postDelete(id);
         System.out.println("삭제 성공"+ result);
     }
 
-    @PostMapping("/post/postUpdate")
+    @PutMapping("/posts/{post_no}")
     public void postUpdate(@RequestBody PostVO postVO){
         System.out.println("postVO값 가져오기"+ postVO);
         int result = service.postUpdate(postVO);

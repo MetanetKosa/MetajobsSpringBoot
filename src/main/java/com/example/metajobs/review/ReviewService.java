@@ -1,5 +1,6 @@
 package com.example.metajobs.review;
 
+import com.example.metajobs.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

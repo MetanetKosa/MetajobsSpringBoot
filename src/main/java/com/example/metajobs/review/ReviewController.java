@@ -1,5 +1,6 @@
 package com.example.metajobs.review;
 
+import com.example.metajobs.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class ReviewController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/reviews/{rno}")
+    @DeleteMapping("/reviews/{review_no}")
     public void deleteUser(@PathVariable int rno){
         ReviewVO review = reviewService.getReview(rno);
 

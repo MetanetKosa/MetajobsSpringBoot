@@ -1,5 +1,6 @@
 package com.example.metajobs.user;
 
+import com.example.metajobs.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

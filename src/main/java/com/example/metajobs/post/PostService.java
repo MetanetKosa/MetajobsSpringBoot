@@ -1,5 +1,6 @@
 package com.example.metajobs.post;
 
+import com.example.metajobs.vo.PostVO;
 import oracle.ucp.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

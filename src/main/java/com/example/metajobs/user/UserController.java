@@ -1,5 +1,6 @@
 package com.example.metajobs.user;
 
+import com.example.metajobs.vo.UserVO;
 import org.springframework.ui.Model;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.validation.Errors;
@@ -16,7 +17,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api")
 public class UserController {
 
     private UserService userService;

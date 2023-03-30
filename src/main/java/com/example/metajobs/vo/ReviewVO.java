@@ -1,4 +1,4 @@
-package com.example.metajobs.review;
+package com.example.metajobs.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
