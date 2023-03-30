@@ -37,7 +37,7 @@ public class ReviewController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/reviews/{review_no}")
+    @DeleteMapping("/reviews/{rno}")
     public void deleteUser(@PathVariable int rno){
         ReviewVO review = reviewService.getReview(rno);
 

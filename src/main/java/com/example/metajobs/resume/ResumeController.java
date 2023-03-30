@@ -22,7 +22,7 @@ public class ResumeController {
         this.service = service;
     }
     //이력서 등록
-    @PostMapping("/users/{id}/resumes")
+    @PostMapping("/users/{mem_no}/resumes")
     public ResponseEntity insert(@Valid @PathVariable Long mem_no, @RequestBody Resume resume){
         resume.setMem_no(mem_no);
         service.insertResume(resume);
@@ -31,25 +31,25 @@ public class ResumeController {
     }
 
     //이력서 목록
-    @GetMapping("/users/{id}/resumes")
+    @GetMapping("/users/{mem_no}/resumes")
     public List<Resume> list(@PathVariable Long mem_no){
 
         return service.getResumeList(mem_no);
     }
 
     //이력서 상세조회
-    @GetMapping("/users/{id}/resumes/{resume_no}")
+    @GetMapping("/users/{mem_no}/resumes/{resume_no}")
     public EntityModel<Resume> get(@PathVariable Long mem_no, @PathVariable Long resume_no){
         Resume resume = service.get(resume_no);
         return EntityModel.of(resume, linkTo(methodOn(ResumeController.class).list(mem_no)).withRel("all-resumes"));
     }
 
-    @DeleteMapping("/users/{id}/resumes/{resume_no}")
+    @DeleteMapping("/users/{mem_no}/resumes/{resume_no}")
     public void delete(@PathVariable Long mem_no,@PathVariable Long resume_no){
         service.delete(resume_no);
     }
 
-    @PutMapping("/users/{id}/resumes/{resume_no}")
+    @PatchMapping("/users/{mem_no}/resumes/{resume_no}")
     public void update(@PathVariable Long mem_no,@PathVariable Long resume_no, @RequestBody Resume resume){
         resume.setMem_no(mem_no);
         resume.setResume_image("image1");

@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResumeVO {
+public class Resume {
 
     private Long resume_no;
     private String resume_image;

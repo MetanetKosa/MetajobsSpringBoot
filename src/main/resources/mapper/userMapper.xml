@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.metajobs.user.UserMapper">
 
-    <resultMap id="userMap" type="com.example.metajobs.user.UserVO">
+    <resultMap id="userMap" type="com.example.metajobs.vo.UserVO">
         <result property="mem_id" column="mem_id"/>
         <result property="mem_pw" column="mem_pw"/>
         <result property="mem_name" column="mem_name"/>

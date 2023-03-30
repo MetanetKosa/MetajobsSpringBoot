@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.metajobs.review.ReviewMapper">
-    <resultMap type="com.example.metajobs.review.ReviewVO" id="reviewResultMap">
+    <resultMap type="com.example.metajobs.vo.ReviewVO" id="reviewResultMap">
         <id property="rno" column="RE_NO"/>
         <result property="cno" column="COM_CNO"/>
         <result property="reJob" column="RE_JOB"/>
