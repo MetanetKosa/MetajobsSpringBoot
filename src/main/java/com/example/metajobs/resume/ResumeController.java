@@ -39,9 +39,9 @@ public class ResumeController {
 
     //이력서 상세조회
     @GetMapping("/users/{id}/resumes/{resume_no}")
-    public EntityModel<Resume> get(@PathVariable Long mem_no, @PathVariable Long resume_no){
+    public EntityModel<Resume> get(@PathVariable Long id, @PathVariable Long resume_no){
         Resume resume = service.get(resume_no);
-        return EntityModel.of(resume, linkTo(methodOn(ResumeController.class).list(mem_no)).withRel("all-resumes"));
+        return EntityModel.of(resume, linkTo(methodOn(ResumeController.class).list(id)).withRel("all-resumes"));
     }
 
     @DeleteMapping("/users/{id}/resumes/{resume_no}")
