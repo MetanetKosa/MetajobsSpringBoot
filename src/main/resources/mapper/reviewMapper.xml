@@ -14,7 +14,6 @@
         <result property="reWdate" column="RE_WDATE"/>
         <result property="mno" column="MEM_NO"/>
     </resultMap>
->>>>>>> 4d8d70945b7a39c7160a95cd82d046a746df0f25
 
 
     <select id="getList" resultMap="reviewResultMap">
