@@ -43,7 +43,7 @@ public class UserController {
 
         //user와 link를 함께 리턴
         return EntityModel.of(user,
-                linkTo(methodOn(UserController.class).findAllUsers()).withRel("all-users"));
+                linkTo(methodOn(UserController.class).findAllUsers()).withRel(String.format("ID[%s] 회원정보입니다.", mem_id)));
     }
 
     //회원가입
