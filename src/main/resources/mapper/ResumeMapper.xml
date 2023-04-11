@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.metajobs.resume.ResumeMapper">
+    <!-- <resultMap type="ResumeVO" id="resumeMap">
+	<id column="RESUME_NO" property="resume_no"/>
+	<id column="RESUME_IMAGE" property="resume_image"/>
+	<id column="RESUME_TITLE" property="resume_title"/>
+	<id column="RESUME_GENDER" property="resume_gender"/>
+	<id column="RESUME_TECHNOLOGY" property="resume_technology"/>
+	<id column="RESUME_CAREER" property="resume_career"/>
+	<id column="RESUME_CV" property="resume_cv"/>
+
+	<association javaType="MemberVO" property="memberVO">
+	<id column="MEM_NO" property="mem_no"/>
+	<result column="MEM_NAME" property="mem_name"/>
+	<result column="MEM_BIRTH" property="mem_birth"/>
+	<result column="MEM_EMALI" property="mem_email"/>
+	<result column="MEM_ADDRESS" property="mem_address"/>
+	</association>
+</resultMap>
+
+<select id="get" parameterType="long" resultMap="resumeMap">
+	select r.resume_no, r.resume_image, r.resume_title, r.resume_gender, r.resume_technology, r.resume_career, r.resume_cv, m.mem_name, m.mem_birth, m.mem_email, m.mem_address from resume r , member m
+	where m.mem_no = r.mem_no
+</select> -->
+
+
+    <!-- 	<insert id="resumeInsert">
+            insert into resume(resume_no, resume_image,resume_title, resume_gender, resume_technology,resume_career , mem_no,resume_cv)
+
+            values(resume_seq.nextVal, #{resume_image}, #{resume_title}, #{resume_gender}, #{resume_technology}, #{resume_career}, 1,  #{resume_cv})
+
+        </insert> -->
+
+    <insert id="resumeInsert">
+
+        <selectKey keyProperty="resume_no" order="BEFORE"
+                   resultType="long">
+            select resume_seq.nextVal from dual
+        </selectKey>
+
+        insert into resume(resume_no,resume_image,resume_title,resume_gender,resume_technology,resume_career,mem_no,resume_cv)
+        values(#{resume_no},'image1', #{resume_title}, #{resume_gender}, #{resume_technology}, #{resume_career},#{mem_no}, #{resume_cv})
+    </insert>
+
+
+    <update id="resumeUpdate">
+        update resume set
+                          resume_title = #{resume_title},
+                          resume_gender = #{resume_gender},
+                          resume_technology = #{resume_technology},
+                          resume_career = #{resume_career},
+                          resume_cv = #{resume_cv},
+                          updateDate = sysdate
+        where resume_no = #{resume_no}
+    </update>
+
+    <select id="get" resultType="Resume">
+        select * from resume where resume_no = #{resume_no}
+    </select>
+
+    <select id="getList" resultType="Resume">
+	<![CDATA[
+        select  * from resume where mem_no = #{mem_no} and resume_no > 0
+        ]]>
+	</select>
+    <update id="imageChange">
+        update resume set resume_image = #{resume_image}
+        where resume_no = #{resume_no}
+    </update>
+
+    <delete id="resumeDelete">
+        delete from resume where resume_no = #{resume_no}
+    </delete>
+
+</mapper>
+
+
+
